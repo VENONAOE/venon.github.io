@@ -2,71 +2,127 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ranking Elite | VENÓN</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-        body { background: #050505; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
-        .ranking-card { width: 100%; max-width: 500px; margin: auto; background: #111; border: 1px solid #333; border-radius: 15px; box-shadow: 0 0 20px rgba(179,0,0,0.4); overflow: hidden; }
-        .title { background: #b30000; font-family: 'Orbitron'; padding: 15px; text-align: center; font-size: 1.2rem; letter-spacing: 2px; }
+        :root { --red: #b30000; --gold: #d4af37; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         
-        .player-item { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid #222; transition: 0.3s; }
-        .player-item:hover { background: #1a1a1a; }
-
-        /* Contenedor de la Foto */
-        .avatar-container { position: relative; width: 55px; height: 55px; margin-right: 15px; flex-shrink: 0; }
-        .avatar { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #d4af37; object-fit: cover; background: #222; }
+        .clan-card { width: 100%; max-width: 450px; background: #111; border: 1px solid #333; border-radius: 15px; overflow: hidden; box-shadow: 0 0 25px rgba(179,0,0,0.4); }
+        .header { background: var(--red); padding: 20px; text-align: center; font-family: 'Orbitron'; font-size: 1.2rem; letter-spacing: 3px; border-bottom: 2px solid var(--gold); }
         
-        .details { flex-grow: 1; }
-        .username { font-weight: bold; font-size: 1rem; color: #fff; display: block; }
-        .rank-tag { font-size: 0.7rem; color: #d4af37; text-transform: uppercase; }
-
-        /* El ELO sacado por Iframe para evitar errores */
-        .elo-box { width: 105px; height: 32px; border: none; filter: invert(1) hue-rotate(180deg) brightness(1.2); }
+        .list-container { max-height: 600px; overflow-y: auto; } /* Scroll por si la lista crece */
+        
+        .player-row { display: flex; align-items: center; padding: 12px 20px; border-bottom: 1px solid #222; transition: 0.3s; justify-content: space-between; }
+        .player-row:hover { background: #1a1a1a; }
+        
+        .player-info { display: flex; align-items: center; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); margin-right: 15px; object-fit: cover; background: #222; }
+        .name { font-weight: bold; font-size: 1rem; color: #f0f0f0; }
+        
+        .btn-view { 
+            background: transparent; color: var(--gold); border: 1px solid var(--gold); 
+            text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; 
+            font-weight: bold; text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-view:hover { background: var(--gold); color: black; box-shadow: 0 0 10px var(--gold); }
+        
+        /* Personalización del scroll */
+        .list-container::-webkit-scrollbar { width: 5px; }
+        .list-container::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
     </style>
 </head>
 <body>
 
-<div class="ranking-card">
-    <div class="title">VENÓN CLAN RANKING</div>
-    <div id="players-list">
-        </div>
-</div>
+    <div class="clan-card">
+        <div class="header">VENÓN CLAN RANKING</div>
+        <div class="list-container">
 
-<script>
-    // Lista completa basada en tu imagen previa
-    const clan = [
-        { n: "Envidiates", id: "5687437" },
-        { n: "Mauricio", id: "1947348" },
-        { n: "Sinister", id: "2598146" },
-        { n: "Develement", id: "2161095" },
-        { n: "Oso", id: "1485562" },
-        { n: "Claut", id: "358501" },
-        { n: "Melodiant", id: "235877" },
-        { n: "Oigres", id: "3552908" }
-    ];
-
-    const list = document.getElementById('players-list');
-
-    clan.forEach(p => {
-        // La URL de la foto que AoE2Insights guarda de cada perfil
-        const fotoUrl = `https://www.aoe2insights.com/static/img/players/player_${p.id}.png`;
-        
-        list.innerHTML += `
-            <div class="player-item">
-                <div class="avatar-container">
-                    <img src="${fotoUrl}" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_5687437.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Envidiates</span>
                 </div>
-                <div class="details">
-                    <span class="username">${p.n}</span>
-                    <span class="rank-tag">Guerrero Venón</span>
-                </div>
-                <div class="elo-val">
-                    <iframe class="elo-box" src="https://www.aoe2insights.com/user/${p.id}/embed/stats/"></iframe>
-                </div>
+                <a href="https://www.aoe2insights.com/user/5687437/" target="_blank" class="btn-view">Check ELO</a>
             </div>
-        `;
-    });
-</script>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_1947348.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Mauricioae13</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/1947348/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_2598146.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Sinister</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/2598146/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_2161095.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Develement</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/2161095/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_1485562.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Oso</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/1485562/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_358501.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Claut</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/358501/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_235877.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Melodiant</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/235877/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_3552908.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Oigres</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/3552908/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_12362317.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Moska</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/12362317/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+            <div class="player-row">
+                <div class="player-info">
+                    <img src="https://www.aoe2insights.com/static/img/players/player_4489200.png" class="avatar" onerror="this.src='https://i.imgur.com/6VBx3io.png'">
+                    <span class="name">Drogao</span>
+                </div>
+                <a href="https://www.aoe2insights.com/user/4489200/" target="_blank" class="btn-view">Check ELO</a>
+            </div>
+
+        </div>
+    </div>
+
+    <p style="margin-top: 20px; color: #555; font-size: 0.8rem;">VENÓN CLAN © 2026 - Datos por AoE2 Insights</p>
 
 </body>
 </html>
