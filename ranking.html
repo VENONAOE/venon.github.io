@@ -3,87 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking Oficial | Venón Clan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Ranking | Venón Clan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #070707; --accent: #b30000; --gold: #d4af37; --text: #f2f2f2; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-top: 90px; }
-        nav { position: fixed; top: 0; width: 100%; height: 70px; background: #000; display: flex; justify-content: space-between; align-items: center; padding: 0 50px; border-bottom: 2px solid var(--accent); z-index: 1000; box-sizing: border-box; }
-        .nav-logo { font-family: 'Orbitron'; color: var(--accent); text-decoration: none; font-weight: bold; font-size: 1.2rem; }
-        .container { max-width: 850px; margin: 20px auto; padding: 30px; background: rgba(15,15,15,0.95); border-radius: 15px; border: 1px solid #333; box-shadow: 0 0 20px rgba(179,0,0,0.1); }
-        h1 { font-family: 'Orbitron'; color: var(--gold); text-align: center; letter-spacing: 2px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { text-align: left; padding: 15px; color: var(--accent); border-bottom: 2px solid var(--accent); font-family: 'Orbitron'; font-size: 0.8rem; }
-        td { padding: 18px 15px; border-bottom: 1px solid #222; }
-        .player-name { font-weight: 600; color: #fff; }
-        .elo-val { color: #00ffcc; font-family: 'Orbitron'; font-weight: bold; font-size: 1.2rem; }
-        .btn-insights { color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; transition: 0.3s; }
-        .btn-insights:hover { background: var(--gold); color: #000; }
-        .btn-back { color: var(--text); text-decoration: none; border: 1px solid #444; padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; }
+        body { background: #070707; color: #f2f2f2; font-family: 'Inter', sans-serif; margin: 0; padding: 100px 20px; }
+        nav { position: fixed; top: 0; width: 100%; height: 70px; background: #000; border-bottom: 2px solid #b30000; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .container { max-width: 500px; margin: auto; background: #111; padding: 25px; border-radius: 12px; border: 1px solid #333; }
+        h1 { font-family: 'Orbitron'; color: #d4af37; text-align: center; }
+        .player-card { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #222; }
+        .elo { font-family: 'Orbitron'; color: #00ffcc; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="index.html" class="nav-logo">VENÓN CLAN</a>
-    <a href="index.html" class="btn-back">← Volver</a>
-</nav>
+<nav><div style="font-family: 'Orbitron'; color: #b30000;">VENÓN CLAN</div></nav>
 
 <div class="container">
-    <h1>RANKING OFICIAL RM 1V1</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>GUERRERO</th>
-                <th>ELO 1V1</th>
-                <th>DETALLES</th>
-            </tr>
-        </thead>
-        <tbody id="player-rows">
-            </tbody>
-    </table>
+    <h1>RANKING 1V1</h1>
+    <div id="ranking-list">Cargando datos reales...</div>
 </div>
 
 <script>
-    // IDs reales de los jugadores
     const clan = [
         { name: "Hera", id: "199325" },
         { name: "TheViper", id: "196240" },
-        { name: "envys", id: "401359" },
-        { name: "sinister", id: "2598146" },
-        { name: "mauricioae13", id: "9449579" }
+        { name: "Envys", id: "401359" },
+        { name: "Sinister", id: "2598146" }
     ];
 
-    async function loadStats() {
-        const tbody = document.getElementById('player-rows');
-        
-        for (let p of clan) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><span class="player-name">VENÓN | ${p.name}</span></td>
-                <td class="elo-val" id="elo-${p.id}">...</td>
-                <td><a href="https://www.aoe2insights.com/user/${p.id}/" target="_blank" class="btn-insights">VER MÁS ↗</a></td>
-            `;
-            tbody.appendChild(row);
+    async function getStats() {
+        const list = document.getElementById('ranking-list');
+        list.innerHTML = "";
 
+        for (let p of clan) {
             try {
-                // Usamos la API de AoE2.net directamente con un "no-cache" para forzar datos frescos
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://aoe2.net/api/player/ratinghistory?game=age2&leaderboard_id=3&profile_id=' + p.id + '&count=1')}`);
-                const json = await response.json();
-                const data = JSON.parse(json.contents);
+                // Usamos un proxy alternativo y más ligero
+                const res = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent('https://api.aoe2companion.com/api/profiles/' + p.id)}`);
+                const data = await res.json();
                 
-                if (data && data.length > 0) {
-                    document.getElementById(`elo-${p.id}`).innerText = data[0].rating;
-                } else {
-                    document.getElementById(`elo-${p.id}`).innerText = "N/A";
+                let rating = "N/A";
+                // Buscamos el ELO en la lista de ratings de la API
+                if (data.ratings) {
+                    const rm = data.ratings.find(r => r.leaderboard_id === 3);
+                    if (rm) rating = rm.rating;
                 }
-            } catch (e) {
-                document.getElementById(`elo-${p.id}`).innerText = "Error";
+
+                list.innerHTML += `<div class="player-card"><span>${p.name}</span><span class="elo">${rating}</span></div>`;
+            } catch (error) {
+                list.innerHTML += `<div class="player-card"><span>${p.name}</span><span class="elo" style="color:orange">OFF</span></div>`;
             }
         }
     }
 
-    document.addEventListener('DOMContentLoaded', loadStats);
+    getStats();
 </script>
 </body>
 </html>
