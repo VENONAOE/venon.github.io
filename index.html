@@ -8,7 +8,7 @@
     <style>
         :root {
             --bg: #030303;
-            --card: rgba(15, 15, 15, 0.8);
+            --card: rgba(15, 15, 15, 0.9);
             --accent: #ff2200;
             --accent-glow: rgba(255, 34, 0, 0.5);
             --text: #ffffff;
@@ -26,61 +26,30 @@
             line-height: 1.6;
         }
 
-        /* --- ESTILOS DE REDES SOCIALES --- */
+        /* --- REDES SOCIALES --- */
         .social-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 50px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 10; /* Asegura que estén por encima de las cenizas */
+            display: flex; gap: 15px; justify-content: center;
+            margin-top: 50px; flex-wrap: wrap; position: relative; z-index: 10;
         }
-
         .btn-social {
-            padding: 12px 25px;
-            border-radius: 4px;
-            text-decoration: none;
-            color: white;
-            font-weight: 700;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.1);
-            min-width: 140px;
-            text-align: center;
+            padding: 12px 25px; border-radius: 4px; text-decoration: none;
+            color: white !important; font-weight: 700; font-size: 0.75rem;
+            letter-spacing: 2px; text-transform: uppercase; transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.1); min-width: 140px; text-align: center;
         }
-
-        .btn-social:hover {
-            transform: translateY(-5px);
-            filter: brightness(1.2);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-
+        .btn-social:hover { transform: translateY(-5px); filter: brightness(1.2); }
         .twitch { background-color: #9146FF; }
         .instagram { background-color: #E1306C; }
         .discord { background-color: #5865F2; }
 
         /* --- FONDO Y CENIZAS --- */
         .fire-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: 
-                radial-gradient(circle at 50% 100%, #200000 0%, transparent 70%),
-                linear-gradient(to bottom, #050505, #000);
+            background: radial-gradient(circle at 50% 100%, #200000 0%, transparent 70%), linear-gradient(to bottom, #050505, #000);
             overflow: hidden;
         }
-
-        .ash {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            filter: blur(1px);
-            animation: fall linear infinite;
-        }
-
+        .ash { position: absolute; background: rgba(255, 255, 255, 0.2); border-radius: 50%; filter: blur(1px); animation: fall linear infinite; }
         @keyframes fall {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
             20% { opacity: 0.8; }
@@ -92,149 +61,90 @@
             position: fixed; top: 0; width: 100%; height: 90px;
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 8%; z-index: 1000;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 34, 0, 0.1);
         }
-
-        .nav-logo { 
-            font-family: 'Cinzel', serif; 
-            color: #fff; 
-            font-weight: 900; 
-            text-decoration: none; 
-            font-size: 1.8rem;
-            letter-spacing: 6px;
-            text-shadow: 0 0 15px var(--accent-glow);
-        }
-        
+        .nav-logo { font-family: 'Cinzel', serif; color: #fff; font-weight: 900; text-decoration: none; font-size: 1.8rem; letter-spacing: 6px; text-shadow: 0 0 15px var(--accent-glow); }
         .nav-logo span { color: var(--accent); }
-
         .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
-        .nav-links a { 
-            text-decoration: none; 
-            color: var(--muted); 
-            font-weight: 600; 
-            font-size: 0.75rem; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: var(--transition);
-        }
-        .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
-
-        .active-rank { 
-            color: #d4af37 !important; 
-            border: 1px solid #d4af37;
-            padding: 10px 20px;
-            border-radius: 2px;
-            background: rgba(212, 175, 55, 0.05);
-        }
+        .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent); }
 
         /* --- HERO --- */
-        header { 
-            height: 100vh;
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero-logo { width: 220px; margin-bottom: 30px; filter: drop-shadow(0 0 40px var(--accent-glow)); animation: float 6s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        header h1 { font-family: 'Cinzel', serif; font-size: clamp(3.5rem, 10vw, 6.5rem); letter-spacing: 20px; color: #fff; line-height: 1; }
+        .hero-tagline { letter-spacing: 8px; color: var(--accent); font-weight: 700; margin: 20px 0; font-size: 1.2rem; text-shadow: 0 0 10px var(--accent-glow); }
+
+        /* --- CARRUSEL DE NOTICIAS GRANDE --- */
+        .news-section { padding: 80px 5%; text-align: center; }
+        .news-title { font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 40px; letter-spacing: 12px; color: #fff; }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 1200px; /* Más ancho */
+            margin: 0 auto;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            background: linear-gradient(145deg, rgba(20,20,20,0.9), rgba(5,5,5,1));
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 34, 0, 0.2);
+        }
+        
+        .carousel-track { display: flex; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .news-slide {
+            min-width: 100%;
+            min-height: 450px; /* Más alto */
+            padding: 80px 10%;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
+            background-image: radial-gradient(circle at center, rgba(255,34,0,0.05) 0%, transparent 70%);
         }
-
-        .hero-logo { 
-            width: 220px; 
-            margin-bottom: 30px; 
-            filter: drop-shadow(0 0 40px var(--accent-glow));
-            animation: float 6s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        header h1 { 
-            font-family: 'Cinzel', serif; 
-            font-size: clamp(3.5rem, 10vw, 6.5rem); 
-            letter-spacing: 20px; 
-            color: #fff;
-            line-height: 1;
-        }
-
-        .hero-tagline { 
-            letter-spacing: 8px;
-            color: var(--accent);
-            font-weight: 700;
-            margin: 20px 0;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        /* --- CARDS --- */
-        section { padding: 100px 10%; position: relative; z-index: 5; }
         
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-        }
-
-        .card {
-            background: var(--card);
-            padding: 60px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            transition: var(--transition);
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: var(--accent-glow);
-            background: rgba(20, 10, 10, 0.9);
-        }
-
-        .card h3 { 
+        .news-slide h3 { 
             font-family: 'Cinzel', serif; 
-            font-size: 1.5rem;
-            margin-bottom: 15px; 
-            color: #fff; 
-            letter-spacing: 3px;
-        }
-
-        /* --- CONTACTO --- */
-        .contact { 
-            text-align: center; 
-            padding: 150px 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .btn-cta {
-            display: inline-block;
-            padding: 25px 60px;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            font-weight: 900;
-            letter-spacing: 5px;
+            color: var(--accent); 
+            font-size: clamp(2rem, 5vw, 3.5rem); /* Título gigante */
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px var(--accent-glow);
             text-transform: uppercase;
-            transition: var(--transition);
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            margin-bottom: 20px;
+        }
+        
+        .news-slide p { 
+            max-width: 800px; 
+            color: #ccc; 
+            font-size: 1.2rem;
+            line-height: 1.8;
+            font-weight: 300;
         }
 
-        .btn-cta:hover {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 0 50px var(--accent-glow);
-            transform: scale(1.1);
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5); border: 1px solid var(--accent); color: white;
+            width: 60px; height: 60px; border-radius: 50%; cursor: pointer; z-index: 11; 
+            transition: 0.3s; font-size: 1.5rem; display: flex; align-items: center; justify-content: center;
         }
+        .carousel-btn:hover { background: var(--accent); box-shadow: 0 0 20px var(--accent); }
+        .prev { left: 20px; }
+        .next { right: 20px; }
 
-        footer { 
-            padding: 40px; text-align: center; color: #333; font-size: 0.7rem; 
-            letter-spacing: 5px; text-transform: uppercase;
-        }
+        /* --- SECCIONES Y CARDS --- */
+        section { padding: 100px 10%; position: relative; z-index: 5; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--card); padding: 60px 40px; border: 1px solid rgba(255, 255, 255, 0.05); transition: var(--transition); text-align: center;}
+        .card:hover { transform: translateY(-15px); border-color: var(--accent-glow); }
+        .card h3 { font-family: 'Cinzel', serif; font-size: 1.5rem; margin-bottom: 15px; letter-spacing: 3px; }
+
+        .contact { text-align: center; padding: 100px 20px; }
+        .btn-cta { display: inline-block; padding: 25px 60px; background: #fff; color: #000; text-decoration: none; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); margin-bottom: 20px; transition: 0.3s;}
+        .btn-cta:hover { background: var(--accent); color: #fff; box-shadow: 0 0 50px var(--accent-glow); }
+
+        footer { padding: 40px; text-align: center; color: #333; font-size: 0.7rem; letter-spacing: 5px; }
     </style>
 </head>
 <body>
@@ -245,7 +155,7 @@
         <a href="index.html" class="nav-logo">VE<span>NÓN</span></a>
         <ul class="nav-links">
             <li><a href="index.html">Inicio</a></li>
-            <li><a href="ranking.html" class="active-rank">Ranking Venón</a></li>
+            <li><a href="ranking.html">Ranking Venón</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
@@ -274,11 +184,31 @@
         </div>
     </section>
 
+    <section class="news-section">
+        <h2 class="news-title">NOVEDADES</h2>
+        <div class="carousel-container">
+            <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="carousel-track" id="carouselTrack">
+                <div class="news-slide">
+                    <h3>NUEVA ERA</h3>
+                    <p>Iniciamos el proceso de profesionalización. Venón no es solo un clan, es una armada lista para conquistar cada torneo en el que participemos.</p>
+                </div>
+                <div class="news-slide">
+                    <h3>OPEN RECRUIT</h3>
+                    <p>Buscamos talento excepcional. Si tu ELO supera los 1500 y tienes disciplina táctica, las puertas de nuestro Discord están abiertas para las pruebas.</p>
+                </div>
+                <div class="news-slide">
+                    <h3>DOMINIO AOE 2</h3>
+                    <p>Próximamente estaremos anunciando nuestra participación en la liga nacional. Prepárense para ver el estandarte rojo en lo más alto.</p>
+                </div>
+            </div>
+            <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </section>
+
     <section class="contact" id="contacto">
         <h2 style="font-family: 'Cinzel'; margin-bottom: 50px; letter-spacing: 10px;">Contacto</h2>
-        
         <a href="mailto:contacto@venon.gg" class="btn-cta">CORREO</a>
-
         <div class="social-container">
             <a href="https://www.twitch.tv/sharis0308" target="_blank" class="btn-social twitch">Twitch</a>
             <a href="https://www.instagram.com/venon.aoe/" target="_blank" class="btn-social instagram">Instagram</a>
@@ -291,6 +221,19 @@
     </footer>
 
     <script>
+        // Lógica del Carrusel
+        let currentSlide = 0;
+        function moveSlide(step) {
+            const track = document.getElementById('carouselTrack');
+            const slides = document.querySelectorAll('.news-slide');
+            currentSlide = (currentSlide + step + slides.length) % slides.length;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // Auto-play (Cambia cada 7 segundos)
+        setInterval(() => moveSlide(1), 7000);
+
+        // Generador de cenizas
         const container = document.getElementById('fireContainer');
         const ashCount = 50;
         for (let i = 0; i < ashCount; i++) {
@@ -300,11 +243,8 @@
             const left = Math.random() * 100 + '%';
             const duration = Math.random() * 5 + 5 + 's';
             const delay = Math.random() * 5 + 's';
-            ash.style.width = size;
-            ash.style.height = size;
-            ash.style.left = left;
-            ash.style.animationDuration = duration;
-            ash.style.animationDelay = delay;
+            ash.style.width = size; ash.style.height = size; ash.style.left = left;
+            ash.style.animationDuration = duration; ash.style.animationDelay = delay;
             ash.style.opacity = Math.random();
             container.appendChild(ash);
         }
